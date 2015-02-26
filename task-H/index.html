@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8 />
+    <title>Geo409 Task H Starter</title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.js"></script>
+
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.3/leaflet.css" />
+    <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: whitesmoke;
+            font-family: Lato, sans-serif;
+            color: #0D0000;
+        }
+        header {
+            padding: 6px 10%;
+        }
+        h1 {
+            display: inline-block;
+            margin-right: 20px;
+            color: #001323;
+        }
+        h2 {
+            display: inline-block;
+            color: #001323;
+        }
+        #map {
+            width: 80%;
+            height: 540px;
+            margin: 10px auto;
+        }
+        footer {
+            padding: 6px 10%;
+            width: 80%;
+        }
+        p {
+            font-size: 1em;
+            color: #001323;
+        }
+        /* Additional style rules go here! */
+        
+        .blue {
+            color: #165bb6;
+        }
+        .red {
+            color: #cc0000;
+        }
+        .purple {
+            color: #b6165b; 
+        }
+        
+
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Sevier County, TN</h1>
+        <h2>The area I am moving to!</h2>
+    </header>
+
+    <div id='map'></div>
+
+    <footer>
+        <p>Map authored by Jeremy Puckett</p>
+        <p>Find interesting points where I will live.</p>
+        <p>After graduation my family and I are moving back to Tennessee.  Above are some of our favorite places.
+        </p>
+    </footer>
+
+    <script>
+
+        var map = L.map('map', {
+            center: [35.606093, -83.432871],
+            zoom: 10,
+        });
+       
+        var tiles = L.tileLayer('http://a{s}.acetate.geoiq.com/tiles/acetate-hillshading/{z}/{x}/{y}.png', {
+            attribution: '&copy;2012 Esri & Stamen, Data from OSM and Natural Earth',
+            subdomains: '0123',
+            minZoom: 4,
+            maxZoom: 12
+        });
+        map.addLayer(tiles);
+        
+        // Begin writing/modifying code for Task H here
+        var fun = {
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7e7e7e",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "Name": "Park Grill",
+        "What": "Great restaurant",
+        "size": 1150  
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -83.5215961933136,
+          35.706804296420266
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7e7e7e",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "Name": "Clingmans Done",
+        "What": "Great views",
+        "size":2000  
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -83.49600791931152,
+          35.556983540260624
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "stroke": "#555555",
+        "stroke-width": 2,
+        "stroke-opacity": 1,
+        "fill": "#555555",
+        "fill-opacity": 0.5,
+        "Name": "GSMNP",
+        "What": "Trails, Waterfalls, and Fun!"
+      },
+      "geometry": {
+        "type": "Polygon",
+        "coordinates": [
+          [
+            [
+              -83.53076934814453,
+              35.69410994928452
+            ],
+            [
+              -83.55583190917969,
+              35.699546897205295
+            ],
+            [
+              -83.66294860839844,
+              35.68853320738875
+            ],
+            [
+              -83.91632080078125,
+              35.57915038479427
+            ],
+            [
+              -83.98223876953125,
+              35.49981018711523
+            ],
+            [
+              -83.880615234375,
+              35.38457160381764
+            ],
+            [
+              -83.64715576171875,
+              35.30840140169162
+            ],
+            [
+              -83.397216796875,
+              35.34201475584807
+            ],
+            [
+              -83.177490234375,
+              35.42262976362149
+            ],
+            [
+              -83.03741455078125,
+              35.58361791939279
+            ],
+            [
+              -82.88360595703125,
+              35.777714272050815
+            ],
+            [
+              -83.02642822265625,
+              35.82226734114509
+            ],
+            [
+              -83.3367919921875,
+              35.777714272050815
+            ],
+            [
+              -83.41644287109374,
+              35.72421761691415
+            ],
+            [
+              -83.53076934814453,
+              35.69410994928452
+            ]
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "properties": {
+        "marker-color": "#7e7e7e",
+        "marker-size": "medium",
+        "marker-symbol": "",
+        "Name": "My Property",
+        "What": "This is where my property is",
+        "size": 600  
+      },
+      "geometry": {
+        "type": "Point",
+        "coordinates": [
+          -83.393075466156,
+          35.79997652634052
+        ]
+      }
+    },
+    {
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "properties": {
+        "Name":"Route",
+        "What":"How to get to Park Grill"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -83.39408397674559,
+            35.80629376257232
+          ],
+          [
+            -83.39605808258055,
+            35.80295247707278
+          ],
+          [
+            -83.39601516723633,
+            35.801664652427895
+          ],
+          [
+            -83.3948564529419,
+            35.800550841303604
+          ],
+          [
+            -83.3968734741211,
+            35.79867124961978
+          ],
+          [
+            -83.39987754821777,
+            35.79867124961978
+          ],
+          [
+            -83.4010362625122,
+            35.80069006854817
+          ],
+          [
+            -83.40498447418213,
+            35.79964585826625
+          ],
+          [
+            -83.40721607208252,
+            35.80110774881785
+          ],
+          [
+            -83.41043472290039,
+            35.79950662919162
+          ],
+          [
+            -83.42880249023438,
+            35.807790334456776
+          ],
+          [
+            -83.43086242675781,
+            35.79943701456279
+          ],
+          [
+            -83.42811584472656,
+            35.79546887988682
+          ],
+          [
+            -83.41498374938965,
+            35.793658787725455
+          ],
+          [
+            -83.41609954833984,
+            35.79150054702672
+          ],
+          [
+            -83.41206550598145,
+            35.78641800674745
+          ],
+          [
+            -83.40803146362305,
+            35.78718388978009
+          ],
+          [
+            -83.40545654296875,
+            35.78662688467009
+          ],
+          [
+            -83.40408325195312,
+            35.783911428859895
+          ],
+          [
+            -83.40665817260742,
+            35.77882840327371
+          ],
+          [
+            -83.40485572814941,
+            35.775277055571046
+          ],
+          [
+            -83.4015941619873,
+            35.77416287458433
+          ],
+          [
+            -83.40296745300292,
+            35.765945307686
+          ],
+          [
+            -83.39970588684082,
+            35.764552415585904
+          ],
+          [
+            -83.3975601196289,
+            35.75960745164845
+          ],
+          [
+            -83.39850425720215,
+            35.754244256010765
+          ],
+          [
+            -83.39558601379395,
+            35.74985591797737
+          ],
+          [
+            -83.40262413024902,
+            35.749507626816666
+          ],
+          [
+            -83.40202331542969,
+            35.745328014006596
+          ],
+          [
+            -83.41386795043945,
+            35.740939184355575
+          ],
+          [
+            -83.42116355895996,
+            35.736410773186705
+          ],
+          [
+            -83.43043327331543,
+            35.73515670609713
+          ],
+          [
+            -83.43755722045898,
+            35.73480835062284
+          ],
+          [
+            -83.44124794006348,
+            35.73494769299545
+          ],
+          [
+            -83.44493865966797,
+            35.73202145196928
+          ],
+          [
+            -83.45832824707031,
+            35.728258984087816
+          ],
+          [
+            -83.46914291381836,
+            35.72602928962272
+          ],
+          [
+            -83.48690986633301,
+            35.727492533655166
+          ],
+          [
+            -83.4964370727539,
+            35.72275431272556
+          ],
+          [
+            -83.49995613098145,
+            35.71780675189569
+          ],
+          [
+            -83.50785255432129,
+            35.71592520447238
+          ],
+          [
+            -83.50896835327148,
+            35.71627364253224
+          ],
+          [
+            -83.51025581359863,
+            35.71439205890935
+          ],
+          [
+            -83.5114574432373,
+            35.71341640546667
+          ],
+          [
+            -83.51815223693848,
+            35.7116044459558
+          ],
+          [
+            -83.52180004119873,
+            35.70731830084317
+          ]
+        ]
+      }
+    }
+  ]
+}  
+  ]
+}
+    var pointOptions = {
+        color: "blue"
+    }
+    var lineOptions = {
+        color: "red"  
+    }
+    var polygonOptions = {
+        color: "green"   
+    } 
+    
+    var mapFun = L.geoJson(fun, {
+        pointToLayer: function(feature, latlng) {
+            console.log(feature);
+            console.log(latlng);
+            return L.circle(latlng, feature.properties.size);
+        },
+         style : function(feature) {
+            return { dashArray: "10, 10",
+                     weight: 2
+                   }   
+        },
+        onEachFeature: function(feature, layer) {
+            if(feature.geometry.type == "Point") {
+                layer.setStyle(pointOptions);
+                layer.bindPopup(feature.properties.Name + "  " + feature.properties.What)
+            }
+            if(feature.geometry.type == "LineString") {
+                layer.setStyle(lineOptions);
+                layer.bindPopup(feature.properties.Name + "  " + feature.properties.What)
+            }   
+            if(feature.geometry.type == "Polygon") {
+                layer.setStyle(polygonOptions);
+                layer.bindPopup(feature.properties.Name + "  " + feature.properties.What)
+            }
+        }
+    }).addTo(map); 
+        
+    
+     
+   
+    </script>
+    
+</body>
+
+</html>
