@@ -143,6 +143,7 @@
                     };
             }          
         }).addTo(map);
+        drawMap();
 
     });
         
@@ -150,17 +151,23 @@
 
         var breaks = getClassBreaks();
 
+            dataLayer.eachLayer(function(layer) {
+                
+                var props = layer.feature.properties;
+                
+                layer.setStyle({
+                    fillColor: getColor(props[attribute]/
+                                        props[norm], breaks)
+                });
+                layer.bindPopup("<b>"+props["NAME"]+" County</b></br>" +
+                                attribute + ": " +
+                                ((props[attribute]/props[norm])*100).toLocaleString());  
+            });
+            
+            drawLegend(breaks);
+
     }
 
-    function getClassBreaks() {
-
-        var values = [];
-    dataLayer.eachLayer(function(layer) {
-        var value = layer.feature.properties[attribute]/layer.feature.properties[norm];
-        values.push(value);   
-    }); 
-    console.log(values);
-        
         
         
          function getClassBreaks() {
@@ -175,14 +182,6 @@
         var breaks = ss.jenks(values, 5);
         console.log(breaks)
         return breaks;
-
-          var breaks = getClassBreaks();
-
-    dataLayer.eachLayer(function(layer) {
-        layer.setStyle({
-            fillColor: getColor(layer.feature.properties[attribute]/layer.feature.properties[norm], breaks)
-        });
-    });    
     } 
        
     function getColor(d, breaks) {
@@ -199,7 +198,6 @@
         }
     }
         
-    } 
          function drawLegend(breaks){
 
        
@@ -236,17 +234,17 @@
         
         legend.addTo(map);
     }
-        var county = {
-        color: "blue"
-    }
-        onEachFeature: function(feature, layer) {
-            if(feature.geometry.type == "FeatureCollection") {
-                layer.setStyle(county);
-                layer.bindPopup(feature.properties.Name+<br><b>"Owned Without Mortgage"+feature.properties.OWNED_FREE)
-            }
-            
-        }
-    }).addTo(map); 
+//        var county = {
+//        color: "blue"
+//    }
+//        onEachFeature: function(feature, layer) {
+//            if(feature.geometry.type == "FeatureCollection") {
+//                layer.setStyle(county);
+//                layer.bindPopup(feature.properties.Name+<br><b>"Owned Without Mortgage"+feature.properties.OWNED_FREE)
+//            }
+//            
+//        }
+//    }).addTo(map); 
     </script>
     
 </body>
