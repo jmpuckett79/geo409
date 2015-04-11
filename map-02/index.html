@@ -70,7 +70,7 @@
         
     var map = L.map('map', {
         center: [35.9728,-83.9422],
-        zoom: 10,
+        zoom: 6,
         minZoom: 4,
         maxZoom: 15,
     });
@@ -80,11 +80,13 @@
   
     map.addLayer(Thunderforest_Outdoors); //    
     console.log(plants)        
-        
+    
     plants.features.sort(function(a,b) {
 			return b.properties.capacity_mw - a.properties.capacity_mw;
 		});
-               
+        
+    var knoxville = L.latLng(35.9728, -83.9422);
+             
         L.geoJson(plants, {
             pointToLayer: function(feature,latlng) {
                  return L.circleMarker(latlng, {
@@ -92,41 +94,23 @@
                      weight: 1.5,
                      fillColor: 'black',
                      fillOpacity: .75,
-                     radius: getRadius(feature.properties.capacity_mw)
+                     radius: getRadius(feature.properties.source["Hydro"])
                  });   
             },
             filter: function(feature, layer) {
-                if(feature.properties.capacity_mw <= 400){
-                    return feature;   
-                }
-            },
-            var knoxville =
-                [
-                    coordinates:[35.9728,-83.9422],
-            ]
-            
-            
-            var location=latlng(knoxville);
-            testDistance(location);
-            }); 
-        
-            function testDistance(location) {
-            
-            filter:function(feature,layer) {
-               if(feature.properties.latlog < 400){
-                   return feature;                     
-                  });
-            
-            filter: function(feature, layer) {
-                if(feature.properties.fuel_source = "hydro"){
-                    return feature;   
+                var featureCoords = L.latLng(feature.geometry.coordinates[1], feature.geometry.coordinates[0]);
+                
+                if(knoxville.distanceTo(featureCoords)/1000 < 400 &&
+                    feature.properties.source["Hydro"] && 
+                    feature.properties.capacity < 500) {
+                    return feature;
                 }
             },
             onEachFeature: function(feature,layer) {
                 var props = feature.properties;
                 var content = "<b>"+props.plant_name+"</b><br>"+
-                    props.capacity_mw.toLocaleString()+" MW<br>";
-                var source = props.fuel_source;
+                    props.capacity.toLocaleString()+" MW<br>";
+                var source = props.source;
                 for(var fuel in source){
                     content+="<b>"+fuel+"</b>: "+source[fuel].toLocaleString()+" MW<br>";
                 }
