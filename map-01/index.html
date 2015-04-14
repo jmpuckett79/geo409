@@ -165,27 +165,22 @@
             }
         ]; // end iguanaShips data
         
-        var dangerCircle = L.circle(dangerCircle, 400);
-        dangerCircle.addTo(map);
-
-        
-         dangerCircle.setStyle({
+      
+         dangerCircle = {
             color: "#d72b1e", 
             weight: 15,
             fillColor: "#d72b1e", 
             fillOpacity: 1 
 
-        });
-        var safeCircle = L.circle(safeCircle, 400);
-          safeCircle.addTo(map);
-
-        safeCircle.setStyle({
+        };
+        
+        safeCircle = {
             color: "#2c0cdd", 
             weight: 15,
             fillColor: "#1e39ce", 
             fillOpacity: 1 
 
-        });
+        };
 
         var iguanaLayer = L.layerGroup();
         for(var i=0; i<iguanaZones.length;i++){
@@ -214,9 +209,21 @@
         function testDistance(location) {
             
             iguanaLayer.eachLayer(function(layer) {
-               if(lzCoords+getRadius(lzSize) < 2200){
-                   location.setSyle(dangerCircle);
-               }else(location.setSyle(safeCirlce));
+                
+                // determine distance between marker and layer
+                var distance = location.distanceTo(layer.getLatLng());
+                
+                // subtract radius from distance
+                distance = distance - layer.getRadius();
+               
+                // if that distance is too close
+                if(distance < 2200) {
+                    // change the layer option to indicate a threat
+                    layer.setStyle(dangerCircle);
+                } else {
+                    // otherwise, ensure layer options are still default
+                    layer.setStyle(safeCircle); 
+                }
                      
 
                   });
