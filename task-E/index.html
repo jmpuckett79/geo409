@@ -108,15 +108,15 @@
         
         function mapCities(cities, cityCoords, cityPops, cityAreas) { 
             
-            var units = ["mile","mile","mile"]
+            var units = 'miles'
             
             for(var i = 0; i < cities.length; i++) {
 
-            var density = cityPops[i] / cityAreas[i];
+            var density = calcPopDensity(cityPops[i], cityAreas[i], units)
                
                 var popup = "<b>"+cities[i]+"</b><br>"
                     +"<b>population</b>: "+cityPops[i]
-                    +"<br><b>area</b>: "+cityAreas[i] +"<br><b>Density</b>: "+density.toLocaleString()+" people per sq " + units[i];
+                    +"<br><b>area</b>: "+cityAreas[i] +"<br><b>Density</b>: "+density.toLocaleString()+" people per sq " + units;
 
                 L.marker(cityCoords[i]).addTo(map)
                     .bindPopup(popup);
@@ -124,13 +124,15 @@
             }
         }
         
-       function calcPopDensity(cityPops,cityAreas,units){
-        var density = cityPops / cityAreas;
-        console.log(density);
+       function calcPopDensity(pop,area,units) {
+            
+            if(units == 'miles') {
+                return pop/area;
+            } else if(units == 'km') {
+               return pop/(area*1.60934*1.60934); // multiply conversion twice to account for sq
             }
-        var cityPops=[i];
-        var cityAreas=[i];
-        calcPopDensity(cityPops,cityAreas)
+            
+        }
                 
           
     </script>
